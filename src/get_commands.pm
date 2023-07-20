@@ -8,8 +8,10 @@ our @ISA = qw( Exporter );
 our @EXPORT = qw( get_commands );
 
 sub get_commands {
-    ("list", "git");
-    opendir my $dir, "/commands" or die "Cannot open diretory $!";
+    opendir my $dir, "src/commands" or die "Cannot open diretory $!";
+    my @files = readdir $dir;
+    closedir $dir;
+    @files;
 }
 
 1;
