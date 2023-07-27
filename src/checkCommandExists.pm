@@ -4,6 +4,7 @@ use warnings;
 use Exporter;
 use lib 'src';
 use commandExists;
+use get_commands;
 
 our @ISA = qw( Exporter );
 
@@ -16,7 +17,13 @@ sub checkCommandExists {
     if ($analysedCommand) {
         return "The command $command exists!";
     } else {
-        return "The command $command does not exists!!! Doing nothing...";
+        my $message = "The command $command does not exists!!! Doing nothing...";
+        $message .= "\nThe following commands are:";
+        my @commands = get_commands();
+        for $command (@commands) {
+            $message .= "\n* $command";
+        }
+        return $message;
     }
 }
 

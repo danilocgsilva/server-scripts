@@ -11,7 +11,16 @@ sub get_commands {
     opendir my $dir, "src/commands" or die "Cannot open diretory $!";
     my @files = readdir $dir;
     closedir $dir;
-    @files;
+
+    my @commands;
+    foreach my $loopfile (@files) {
+        if ($loopfile ne "." && $loopfile ne "..") {
+            my @commandSplitted = split(/\./, $loopfile);
+            push @commands, $commandSplitted[0];
+        }
+    }
+
+    return @commands;
 }
 
 1;
